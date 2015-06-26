@@ -23,10 +23,14 @@ module SimpleNavigationRenderers
 
       def container_class( level )
         if level == 1
-          "nav" + ((options[:bv] == 3) ? ' navbar-nav' : '')
+          "nav" + navigation_class
         else
           "dropdown-menu"
         end
+      end
+
+      def navigation_class
+        options[:bv] == 3 ? ' navbar-nav' : ''
       end
 
       def with_bootstrap_configs
