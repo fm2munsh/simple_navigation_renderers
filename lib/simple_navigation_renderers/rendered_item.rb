@@ -59,7 +59,7 @@ module SimpleNavigationRenderers
             if split
               splitted_simple_part + splitted_dropdown_part
             else
-              dropdown_part( item.name + ' ' + caret )
+              dropdown_part( (item.name + ' ' + caret).html_safe )
             end
           else
             content_tag(:li, dropdown_submenu_link, options)
