@@ -22,8 +22,9 @@ module SimpleNavigationRenderers
     private
 
       def container_class( level )
+        remove_navigation_class = options.delete(:remove_navigation_class){ false }
         if level == 1
-          "nav" + navigation_class
+          remove_navigation_class ? '' : ("nav" + navigation_class)
         else
           "dropdown-menu"
         end
