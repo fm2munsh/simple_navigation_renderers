@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe SimpleNavigationRenderers do
   it "registers 'bootstrap2' renderer" do

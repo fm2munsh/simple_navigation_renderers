@@ -13,23 +13,23 @@ describe SimpleNavigationRenderers::Bootstrap do
 
     # tested navigation content
     def fill_in(primary)
-      primary.item :news, {icon: "fa fa-fw fa-bullhorn", text: "News"}, "news_index_path"
-      primary.item :concerts, "Concerts", "concerts_path", html: { class: "to_check_header", header: true }
-      primary.item :video, "Video", "videos_path", html: { class: "to_check_split", split: true }
+      primary.item :news, { icon: 'fa fa-fw fa-bullhorn', text: 'News' }, 'news_index_path'
+      primary.item :concerts, 'Concerts', 'concerts_path', html: { class: 'to_check_header', header: true }
+      primary.item :video, 'Video', 'videos_path', html: { class: 'to_check_split', split: true }
       primary.item :divider_before_info_index_path, '', '#', html: { divider: true }
-      primary.item :info, {icon: "fa fa-fw fa-book", title: "Info"}, "info_index_path", html: { split: true } do |info_nav|
-        info_nav.item :main_info_page, "Main info page", "main_info_page"
-        info_nav.item :about_info_page, "About", "about_info_page"
+      primary.item :info, { icon: 'fa fa-fw fa-book', title: 'Info' }, 'info_index_path', html: { split: true } do |info_nav|
+        info_nav.item :main_info_page, 'Main info page', 'main_info_page'
+        info_nav.item :about_info_page, 'About', 'about_info_page'
         info_nav.item :divider_before_misc_info_pages, '', '#', html: { divider: true }
-        info_nav.item :misc_info_pages, "Misc.", "misc_info_pages", html: { split: true } do |misc_nav|
-          misc_nav.item :header_misc_pages, "Misc. Pages", '#', html: { class: "to_check_header2", header: true }
-          misc_nav.item :page1, "Page1", "page1"
-          misc_nav.item :page2, "Page2", "page2"
+        info_nav.item :misc_info_pages, 'Misc.', 'misc_info_pages', html: { split: true } do |misc_nav|
+          misc_nav.item :header_misc_pages, 'Misc. Pages', '#', html: { class: 'to_check_header2', header: true }
+          misc_nav.item :page1, 'Page1', 'page1'
+          misc_nav.item :page2, 'Page2', 'page2'
         end
         info_nav.item :divider_before_contact_info_page, '', '#', html: { divider: true }
-        info_nav.item :contact_info_page, "Contact", "contact_info_page"
+        info_nav.item :contact_info_page, 'Contact', 'contact_info_page'
       end
-      primary.item :signed_in, "Signed in as Pavel Shpak", '#', html: { class: "to_check_navbar_text", navbar_text: true }
+      primary.item :signed_in, 'Signed in as Pavel Shpak', '#', html: { class: 'to_check_navbar_text', navbar_text: true }
     end
 
 
@@ -161,8 +161,8 @@ describe SimpleNavigationRenderers::Bootstrap do
         check_selector bootstrap3_navigation, HTML::Selector.new('ul > li.to_check_navbar_text > a'), 0
         check_selector bootstrap2_navigation, HTML::Selector.new('ul > li.to_check_navbar_text > a'), 0
 
-        expect(HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(bootstrap3_navigation)[0].children[0].to_s).to eq "Signed in as Pavel Shpak"
-        expect(HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(bootstrap2_navigation)[0].children[0].to_s).to eq "Signed in as Pavel Shpak"
+        expect(HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(bootstrap3_navigation)[0].children[0].to_s).to eq 'Signed in as Pavel Shpak'
+        expect(HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(bootstrap2_navigation)[0].children[0].to_s).to eq 'Signed in as Pavel Shpak'
       end
     end
 
@@ -219,8 +219,8 @@ describe SimpleNavigationRenderers::Bootstrap do
           check_selector bootstrap3_navigation, HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header > a'), 0
           check_selector bootstrap2_navigation, HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header > a'), 0
 
-          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header').select(bootstrap3_navigation)[0].children[0].to_s).to eq "Misc. Pages"
-          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header').select(bootstrap2_navigation)[0].children[0].to_s).to eq "Misc. Pages"
+          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header').select(bootstrap3_navigation)[0].children[0].to_s).to eq 'Misc. Pages'
+          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header').select(bootstrap2_navigation)[0].children[0].to_s).to eq 'Misc. Pages'
         end
       end
     end
@@ -241,7 +241,7 @@ describe SimpleNavigationRenderers::Bootstrap do
 
       context "with ':text' parameter" do
         it "uses the parameter value as 'name' of the item" do
-          expect(HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-bullhorn').select(bootstrap3_navigation)[0].parent.children[1].to_s).to eq " News"
+          expect(HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-bullhorn').select(bootstrap3_navigation)[0].parent.children[1].to_s).to eq ' News'
         end
       end
 
@@ -249,7 +249,7 @@ describe SimpleNavigationRenderers::Bootstrap do
         it "raises 'InvalidHash' error" do
           expect {
             render_result(3, true)
-          }.to raise_error( SimpleNavigationRenderers::InvalidHash )
+          }.to raise_error(SimpleNavigationRenderers::InvalidHash)
         end
       end
     end
