@@ -1,5 +1,13 @@
+require 'simplecov'
 require 'coveralls'
-Coveralls.wear!
+
+## Configure SimpleCov
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+
+SimpleCov.start
 
 ENV["RAILS_ENV"] = "test"
 require 'action_controller'
