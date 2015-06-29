@@ -61,16 +61,22 @@ describe SimpleNavigationRenderers::Bootstrap do
 
     def prepare_navigation_instance(renderer)
       SimpleNavigation::Configuration.instance.renderer = renderer
-      SimpleNavigation.stub(adapter: simple_navigation_adapter)
-      SimpleNavigation::Item.any_instance.stub( selected?: false, selected_by_condition?: false )
+      allow(SimpleNavigation).to receive_messages(adapter: simple_navigation_adapter)
+      allow_any_instance_of(SimpleNavigation::Item).to receive_messages(selected?: false, selected_by_condition?: false)
     end
 
 
     def build_main_menu(stub_name)
+      # Create a new container
       main_menu = SimpleNavigation::ItemContainer.new(1)
+      # Fill it with menu
       fill_in(main_menu)
-      main_menu.items.find { |item| item.key == :news }.stub( selected?: true, selected_by_condition?: true )
+      # Mark one entry as selected
+      selected = main_menu.items.find { |item| item.key == :news }
+      allow(selected).to receive_messages(selected?: true, selected_by_condition?: true)
+      # Stub if needed
       main_menu.items[0].instance_variable_set(:@name, {}) if stub_name
+      # Return menu
       main_menu
     end
 
