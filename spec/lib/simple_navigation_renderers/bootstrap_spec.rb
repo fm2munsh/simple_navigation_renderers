@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'action_view'
 
 begin
   require 'html/document' unless defined? HTML::Document
