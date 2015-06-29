@@ -1,5 +1,10 @@
 require 'spec_helper'
-require 'html/document' unless defined? HTML::Document
+
+begin
+  require 'html/document' unless defined? HTML::Document
+rescue LoadError => e
+  require 'rails/deprecated_sanitizer' unless defined? HTML::Document
+end
 
 describe SimpleNavigationRenderers::Bootstrap do
 
