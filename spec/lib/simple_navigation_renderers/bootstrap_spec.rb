@@ -33,18 +33,17 @@ describe SimpleNavigationRenderers::Bootstrap do
     end
 
 
-    # 'bv' is bootstrap version
     # 'stub_name' neads to check raising error when invalid 'Item name hash' provided
     #
-    def render_result(bv = 3, stub_name = false)
-      prepare_navigation_instance(bv)
+    def render_result(bs_version, stub_name = false)
+      prepare_navigation_instance(bs_version)
       main_menu = build_main_menu(stub_name).render(expand_all: true)
       html_document(main_menu).root
     end
 
 
-    def prepare_navigation_instance(bv)
-      SimpleNavigation::Configuration.instance.renderer = (bv == 3) ? SimpleNavigationRenderers::Bootstrap3 : SimpleNavigationRenderers::Bootstrap2
+    def prepare_navigation_instance(bs_version)
+      SimpleNavigation::Configuration.instance.renderer = (bs_version == 3) ? SimpleNavigationRenderers::Bootstrap3 : SimpleNavigationRenderers::Bootstrap2
       SimpleNavigation.stub( adapter: (SimpleNavigation::Adapters::Rails.new(double(:context, view_context: ActionView::Base.new))) )
       SimpleNavigation::Item.any_instance.stub( selected?: false, selected_by_condition?: false )
     end
@@ -59,13 +58,15 @@ describe SimpleNavigationRenderers::Bootstrap do
     end
 
 
-    def bootstrap3_navigation
-      render_result
+    def bootstrap3_navigation(opts = {})
+      stub_name = opts.delete(:stub_name){ false }
+      render_result(3, stub_name)
     end
 
 
-    def bootstrap2_navigation
-      render_result(2)
+    def bootstrap2_navigation(opts = {})
+      stub_name = opts.delete(:stub_name){ false }
+      render_result(2, stub_name)
     end
 
 
@@ -266,7 +267,7 @@ describe SimpleNavigationRenderers::Bootstrap do
       context "without ':text' and ':icon' parameters" do
         it "raises 'InvalidHash' error" do
           expect {
-            render_result(3, true)
+            bootstrap3_navigation(stub_name: true)
           }.to raise_error(SimpleNavigationRenderers::InvalidHash)
         end
       end
