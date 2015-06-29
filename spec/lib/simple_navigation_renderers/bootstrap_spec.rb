@@ -26,6 +26,7 @@ describe SimpleNavigationRenderers::Bootstrap do
       primary.item :singed_in, "Signed in as Pavel Shpak", class: "to_check_navbar_text", navbar_text: true
     end
 
+
     # 'bv' is bootstrap version
     # 'stub_name' neads to check raising error when invalid 'Item name hash' provided
     def render_result( bv=3, stub_name=false )
@@ -44,12 +45,12 @@ describe SimpleNavigationRenderers::Bootstrap do
     end
 
 
-
     context "for 'bootstrap3' renderer" do
       it "wraps main menu in ul-tag with 'nav navbar-nav' classes" do
         HTML::Selector.new('ul.nav.navbar-nav').select(render_result).should have(1).entries
       end
     end
+
 
     context "for 'bootstrap2' renderer" do
       it "wraps main menu in ul-tag with 'nav' class" do
@@ -58,13 +59,16 @@ describe SimpleNavigationRenderers::Bootstrap do
       end
     end
 
+
     it "sets up 'active' class on selected items (on li-tags)" do
       HTML::Selector.new('ul.nav.navbar-nav > li.active > a[href="news_index_path"]').select(render_result).should have(1).entries
     end
 
+
     it "wraps submenu in ul-tag 'dropdown-menu' class" do
       HTML::Selector.new('ul > li > ul.dropdown-menu > li > ul.dropdown-menu').select(render_result).should have(1).entries
     end
+
 
     context "for the first level submenu (the second level menu)" do
       it "sets up 'dropdown' class on li-tag which contains that submenu" do
@@ -92,12 +96,12 @@ describe SimpleNavigationRenderers::Bootstrap do
       end
     end
 
+
     context "for nested submenu (the third level menu and deeper)" do
       it "sets up 'dropdown-submenu' class on li-tag which contains that submenu" do
         HTML::Selector.new('ul > li > ul.dropdown-menu > li.dropdown-submenu').select(render_result).should have(1).entries
       end
     end
-
 
 
     context "when ':split' option provided" do
@@ -131,7 +135,6 @@ describe SimpleNavigationRenderers::Bootstrap do
     end
 
 
-
     context "when ':navbar_text' option provided" do
       it "creates p-tag with class 'navbar-text' and item 'name' as a content instead of link-tag for the item (standard item)" do
         HTML::Selector.new('ul > li.to_check_navbar_text > a').select(render_result).should have(0).entries
@@ -140,7 +143,6 @@ describe SimpleNavigationRenderers::Bootstrap do
         HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(render_result(2))[0].children[0].to_s.should == "Signed in as Pavel Shpak"
       end
     end
-
 
 
     context "when ':divider' option provided" do
@@ -163,7 +165,6 @@ describe SimpleNavigationRenderers::Bootstrap do
         end
       end
     end
-
 
 
     context "when ':header' option provided" do
@@ -200,7 +201,6 @@ describe SimpleNavigationRenderers::Bootstrap do
         end
       end
     end
-
 
 
     context "when 'hash' provided in place of 'name'" do
