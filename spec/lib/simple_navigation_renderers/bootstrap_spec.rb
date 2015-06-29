@@ -53,59 +53,59 @@ describe SimpleNavigationRenderers::Bootstrap do
 
     context "for 'bootstrap3' renderer" do
       it "wraps main menu in ul-tag with 'nav navbar-nav' classes" do
-        HTML::Selector.new('ul.nav.navbar-nav').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul.nav.navbar-nav').select(render_result)).to have(1).entries
       end
     end
 
 
     context "for 'bootstrap2' renderer" do
       it "wraps main menu in ul-tag with 'nav' class" do
-        HTML::Selector.new('ul.nav.navbar-nav').select(render_result(2)).should have(0).entries
-        HTML::Selector.new('ul.nav').select(render_result(2)).should have(1).entries
+        expect(HTML::Selector.new('ul.nav.navbar-nav').select(render_result(2))).to have(0).entries
+        expect(HTML::Selector.new('ul.nav').select(render_result(2))).to have(1).entries
       end
     end
 
 
     it "sets up 'active' class on selected items (on li-tags)" do
-      HTML::Selector.new('ul.nav.navbar-nav > li.active > a[href="news_index_path"]').select(render_result).should have(1).entries
+      expect(HTML::Selector.new('ul.nav.navbar-nav > li.active > a[href="news_index_path"]').select(render_result)).to have(1).entries
     end
 
 
     it "wraps submenu in ul-tag 'dropdown-menu' class" do
-      HTML::Selector.new('ul > li > ul.dropdown-menu > li > ul.dropdown-menu').select(render_result).should have(1).entries
+      expect(HTML::Selector.new('ul > li > ul.dropdown-menu > li > ul.dropdown-menu').select(render_result)).to have(1).entries
     end
 
 
     context "for the first level submenu (the second level menu)" do
       it "sets up 'dropdown' class on li-tag which contains that submenu" do
-        HTML::Selector.new('ul > li.dropdown').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li.dropdown').select(render_result)).to have(1).entries
       end
 
       it "sets up 'dropdown-toggle' class on link-tag which is used for toggle that submenu" do
-        HTML::Selector.new('ul > li.dropdown > a.dropdown-toggle').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li.dropdown > a.dropdown-toggle').select(render_result)).to have(1).entries
       end
 
       it "sets up 'data-toggle' attribute to 'dropdown' on link-tag which is used for toggle that submenu" do
-        HTML::Selector.new('ul > li.dropdown > a[data-toggle=dropdown]').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li.dropdown > a[data-toggle=dropdown]').select(render_result)).to have(1).entries
       end
 
       it "sets up 'data-target' attribute to '#' on link-tag which is used for toggle that submenu" do
-        HTML::Selector.new('ul > li.dropdown > a[data-target=#]').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li.dropdown > a[data-target=#]').select(render_result)).to have(1).entries
       end
 
       it "sets up 'href' attribute to '#' on link-tag which is used for toggle that submenu" do
-        HTML::Selector.new('ul > li.dropdown > a[href=#]').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li.dropdown > a[href=#]').select(render_result)).to have(1).entries
       end
 
       it "puts b-tag with 'caret' class in li-tag which contains that submenu" do
-        HTML::Selector.new('ul > li.dropdown > a[href=#] > b.caret').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li.dropdown > a[href=#] > b.caret').select(render_result)).to have(1).entries
       end
     end
 
 
     context "for nested submenu (the third level menu and deeper)" do
       it "sets up 'dropdown-submenu' class on li-tag which contains that submenu" do
-        HTML::Selector.new('ul > li > ul.dropdown-menu > li.dropdown-submenu').select(render_result).should have(1).entries
+        expect(HTML::Selector.new('ul > li > ul.dropdown-menu > li.dropdown-submenu').select(render_result)).to have(1).entries
       end
     end
 
@@ -113,29 +113,29 @@ describe SimpleNavigationRenderers::Bootstrap do
     context "when ':split' option provided" do
       context "for the first level item which contains submenu" do
         it "splits item on two li-tags (left and right) and right li-tag will contain the first level submenu (second level menu)" do
-          HTML::Selector.new('ul > li.dropdown-split-left + li.dropdown.dropdown-split-right > ul.dropdown-menu').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul > li.dropdown-split-left + li.dropdown.dropdown-split-right > ul.dropdown-menu').select(render_result)).to have(1).entries
         end
 
         it "sets up 'pull-right' class on ul-tag which is the submenu" do
-          HTML::Selector.new('ul > li > ul.dropdown-menu.pull-right').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul > li > ul.dropdown-menu.pull-right').select(render_result)).to have(1).entries
         end
       end
 
       context "for the second level item and deeper which contains submenu" do
         it "does not splits item on two li-tags" do
-          HTML::Selector.new('ul.dropdown-menu > li.dropdown-split-left + li.dropdown.dropdown-split-right > ul.dropdown-menu').select(render_result).should have(0).entries
-          HTML::Selector.new('ul.dropdown-menu > li.dropdown-submenu > ul.dropdown-menu').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li.dropdown-split-left + li.dropdown.dropdown-split-right > ul.dropdown-menu').select(render_result)).to have(0).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li.dropdown-submenu > ul.dropdown-menu').select(render_result)).to have(1).entries
         end
 
         it "does not sets up 'pull-right' class on ul-tag which is the submenu" do
-          HTML::Selector.new('ul.dropdown-menu > li > ul.dropdown-menu.pull-right').select(render_result).should have(0).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li > ul.dropdown-menu.pull-right').select(render_result)).to have(0).entries
         end
       end
 
       context "for item which does not contain submenu" do
         it "does not splits item on two li-tags" do
-          HTML::Selector.new('ul > li.to_check_split.dropdown-split-left + li.dropdown.dropdown-split-right').select(render_result).should have(0).entries
-          HTML::Selector.new('ul > li.to_check_split').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul > li.to_check_split.dropdown-split-left + li.dropdown.dropdown-split-right').select(render_result)).to have(0).entries
+          expect(HTML::Selector.new('ul > li.to_check_split').select(render_result)).to have(1).entries
         end
       end
     end
@@ -143,31 +143,31 @@ describe SimpleNavigationRenderers::Bootstrap do
 
     context "when ':navbar_text' option provided" do
       it "creates p-tag with class 'navbar-text' and item 'name' as a content instead of link-tag for the item (standard item)" do
-        HTML::Selector.new('ul > li.to_check_navbar_text > a').select(render_result).should have(0).entries
-        HTML::Selector.new('ul > li.to_check_navbar_text > a').select(render_result(2)).should have(0).entries
-        HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(render_result)[0].children[0].to_s.should == "Signed in as Pavel Shpak"
-        HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(render_result(2))[0].children[0].to_s.should == "Signed in as Pavel Shpak"
+        expect(HTML::Selector.new('ul > li.to_check_navbar_text > a').select(render_result)).to have(0).entries
+        expect(HTML::Selector.new('ul > li.to_check_navbar_text > a').select(render_result(2))).to have(0).entries
+        expect(HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(render_result)[0].children[0].to_s).to eq "Signed in as Pavel Shpak"
+        expect(HTML::Selector.new('ul > li.to_check_navbar_text > p.navbar-text').select(render_result(2))[0].children[0].to_s).to eq "Signed in as Pavel Shpak"
       end
     end
 
 
     context "when ':divider' option provided" do
       it "does not create link-tag for the item (standard item)" do
-        HTML::Selector.new('ul > li.divider-vertical + li > a[href="divider_before_info_index_path"]').select(render_result).should have(0).entries
-        HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="divider_before_misc_info_pages"]').select(render_result).should have(0).entries
-        HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="divider_before_contact_info_page"]').select(render_result).should have(0).entries
+        expect(HTML::Selector.new('ul > li.divider-vertical + li > a[href="divider_before_info_index_path"]').select(render_result)).to have(0).entries
+        expect(HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="divider_before_misc_info_pages"]').select(render_result)).to have(0).entries
+        expect(HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="divider_before_contact_info_page"]').select(render_result)).to have(0).entries
       end
 
       context "for the first level item" do
         it "adds li-tag with class 'divider-vertical'" do
-          HTML::Selector.new('ul > li.divider-vertical + li > a[href="info_index_path"]').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul > li.divider-vertical + li > a[href="info_index_path"]').select(render_result)).to have(1).entries
         end
       end
 
       context "for the second level item and deeper" do
         it "adds li-tag with class 'divider'" do
-          HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="misc_info_pages"]').select(render_result).should have(1).entries
-          HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="contact_info_page"]').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="misc_info_pages"]').select(render_result)).to have(1).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li.divider + li > a[href="contact_info_page"]').select(render_result)).to have(1).entries
         end
       end
     end
@@ -176,34 +176,34 @@ describe SimpleNavigationRenderers::Bootstrap do
     context "when ':header' option provided" do
       context "for the first level item" do
         it "does not set up 'dropdown-header' or 'nav-header' class on li-tag" do
-          HTML::Selector.new('ul.nav.navbar-nav > li.to_check_header.dropdown-header').select(render_result).should have(0).entries
-          HTML::Selector.new('ul.nav > li.to_check_header.nav-header').select(render_result(2)).should have(0).entries
+          expect(HTML::Selector.new('ul.nav.navbar-nav > li.to_check_header.dropdown-header').select(render_result)).to have(0).entries
+          expect(HTML::Selector.new('ul.nav > li.to_check_header.nav-header').select(render_result(2))).to have(0).entries
         end
 
         it "creates link-tag for the item (standard item)" do
-          HTML::Selector.new('ul.nav.navbar-nav > li.to_check_header > a').select(render_result).should have(1).entries
-          HTML::Selector.new('ul.nav > li.to_check_header > a').select(render_result(2)).should have(1).entries
+          expect(HTML::Selector.new('ul.nav.navbar-nav > li.to_check_header > a').select(render_result)).to have(1).entries
+          expect(HTML::Selector.new('ul.nav > li.to_check_header > a').select(render_result(2))).to have(1).entries
         end
       end
 
       context "for the second level item and deeper" do
         context "for 'bootstrap3' renderer" do
           it "sets up 'dropdown-header' class on li-tag" do
-            HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header').select(render_result).should have(1).entries
+            expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header').select(render_result)).to have(1).entries
           end
         end
 
         context "for 'bootstrap2' renderer" do
           it "sets up 'nav-header' class on li-tag" do
-            HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header').select(render_result(2)).should have(1).entries
+            expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header').select(render_result(2))).to have(1).entries
           end
         end
 
         it "does not create link-tag for the item (standard item), but puts only item 'name'" do
-          HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header > a').select(render_result).should have(0).entries
-          HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header > a').select(render_result(2)).should have(0).entries
-          HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header').select(render_result)[0].children[0].to_s.should == "Misc. Pages"
-          HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header').select(render_result(2))[0].children[0].to_s.should == "Misc. Pages"
+          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header > a').select(render_result)).to have(0).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header > a').select(render_result(2))).to have(0).entries
+          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.dropdown-header').select(render_result)[0].children[0].to_s).to eq "Misc. Pages"
+          expect(HTML::Selector.new('ul.dropdown-menu > li.to_check_header2.nav-header').select(render_result(2))[0].children[0].to_s).to eq "Misc. Pages"
         end
       end
     end
@@ -212,19 +212,19 @@ describe SimpleNavigationRenderers::Bootstrap do
     context "when 'hash' provided in place of 'name'" do
       context "with ':icon' parameter" do
         it "adds span-tag with classes from the parameter" do
-          HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-bullhorn').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-bullhorn').select(render_result)).to have(1).entries
         end
       end
 
       context "with ':title' parameter" do
         it "sets up 'title' attribute on icon's span-tag to the parameter value" do
-          HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-book[title="Info"]').select(render_result).should have(1).entries
+          expect(HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-book[title="Info"]').select(render_result)).to have(1).entries
         end
       end
 
       context "with ':text' parameter" do
         it "uses the parameter value as 'name' of the item" do
-          HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-bullhorn').select(render_result)[0].parent.children[1].to_s.should == " News"
+          expect(HTML::Selector.new('ul > li > a > span.fa.fa-fw.fa-bullhorn').select(render_result)[0].parent.children[1].to_s).to eq " News"
         end
       end
 
