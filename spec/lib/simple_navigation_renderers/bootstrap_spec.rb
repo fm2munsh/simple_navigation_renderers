@@ -35,19 +35,27 @@ describe SimpleNavigationRenderers::Bootstrap do
 
     # 'bv' is bootstrap version
     # 'stub_name' neads to check raising error when invalid 'Item name hash' provided
+    #
     def render_result(bv = 3, stub_name = false)
+      prepare_navigation_instance(bv)
+      main_menu = build_main_menu(stub_name).render(expand_all: true)
+      html_document(main_menu).root
+    end
+
+
+    def prepare_navigation_instance(bv)
       SimpleNavigation::Configuration.instance.renderer = (bv == 3) ? SimpleNavigationRenderers::Bootstrap3 : SimpleNavigationRenderers::Bootstrap2
-
       SimpleNavigation.stub( adapter: (SimpleNavigation::Adapters::Rails.new(double(:context, view_context: ActionView::Base.new))) )
-
       SimpleNavigation::Item.any_instance.stub( selected?: false, selected_by_condition?: false )
-      primary_navigation = SimpleNavigation::ItemContainer.new(1)
-      fill_in( primary_navigation ) # helper method
-      primary_navigation.items.find { |item| item.key == :news }.stub( selected?: true, selected_by_condition?: true )
+    end
 
-      primary_navigation.items[0].instance_variable_set(:@name, {}) if stub_name
 
-      HTML::Document.new( primary_navigation.render(expand_all: true) ).root
+    def build_main_menu(stub_name)
+      main_menu = SimpleNavigation::ItemContainer.new(1)
+      fill_in(main_menu)
+      main_menu.items.find { |item| item.key == :news }.stub( selected?: true, selected_by_condition?: true )
+      main_menu.items[0].instance_variable_set(:@name, {}) if stub_name
+      main_menu
     end
 
 
@@ -63,6 +71,11 @@ describe SimpleNavigationRenderers::Bootstrap do
 
     def html_selector(*args)
       HTML::Selector.new(*args)
+    end
+
+
+    def html_document(*args)
+      HTML::Document.new(*args)
     end
 
 
