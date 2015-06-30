@@ -44,7 +44,7 @@ There are two ways to say that you want to use any of renderers.
 
     ```erb
     ...
-      <%= render_navigation( expand_all: true, renderer: :bootstrap3 ) %>
+      <%= render_navigation(expand_all: true, renderer: :bootstrap3) %>
     ...
     ```
 
