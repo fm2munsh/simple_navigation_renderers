@@ -19,5 +19,4 @@ end unless defined? Rails
 RAILS_ROOT = './' unless defined?(RAILS_ROOT)
 RAILS_ENV = 'test' unless defined?(RAILS_ENV)
 
-require "rspec/collection_matchers"
 require "simple_navigation_renderers"

@@ -93,7 +93,7 @@ describe SimpleNavigationRenderers::Bootstrap do
 
 
     def check_selector(nav_menu, selector, nb_entries = 1)
-      expect(nav_menu.css(selector)).to have(nb_entries).entries
+      expect(nav_menu.css(selector).size).to eq nb_entries
     end
 
 
