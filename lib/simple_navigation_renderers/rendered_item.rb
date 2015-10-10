@@ -18,7 +18,7 @@ module SimpleNavigationRenderers
       @navbar_text = options.delete(:navbar_text)
       @divider = options.delete(:divider)
       @header = options.delete(:header)
-      @link_options = options.delete(:link) || {}
+      @link_options = @item.link_html_options || {}
       @split = options.delete(:split)
     end
 
