@@ -18,7 +18,7 @@ module SimpleNavigationRenderers
       @navbar_text = options.delete(:navbar_text)
       @divider = options.delete(:divider)
       @header = options.delete(:header)
-      @link_options = options.delete(:link) || {}
+      @link_options = @item.link_html_options || {}
       @split = options.delete(:split)
     end
 
@@ -59,7 +59,7 @@ module SimpleNavigationRenderers
             if split
               splitted_simple_part + splitted_dropdown_part
             else
-              dropdown_part( item.name + ' ' + caret )
+              dropdown_part( (item.name + ' ' + caret).html_safe )
             end
           else
             content_tag(:li, dropdown_submenu_link, options)

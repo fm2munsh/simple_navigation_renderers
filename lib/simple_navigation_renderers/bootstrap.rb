@@ -22,11 +22,16 @@ module SimpleNavigationRenderers
     private
 
       def container_class( level )
+        remove_navigation_class = options.delete(:remove_navigation_class){ false }
         if level == 1
-          "nav" + ((options[:bv] == 3) ? ' navbar-nav' : '')
+          remove_navigation_class ? '' : ("nav" + navigation_class)
         else
           "dropdown-menu"
         end
+      end
+
+      def navigation_class
+        options[:bv] == 3 ? ' navbar-nav' : ''
       end
 
       def with_bootstrap_configs
